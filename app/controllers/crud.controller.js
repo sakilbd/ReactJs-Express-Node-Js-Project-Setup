@@ -45,7 +45,10 @@ exports.findAll = (req, res) => {
 
     User.findAll()
         .then((data) => {
-            res.send(data);
+            // res.send(data);
+            res.status(200).send({
+                data: data,
+            });
         })
         .catch((err) => {
             res.status(500).send({
