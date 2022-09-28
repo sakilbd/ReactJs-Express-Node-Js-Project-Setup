@@ -3,27 +3,36 @@ const User = model.User;
 // const Op = model.Sequelize.Op;
 const { Sequelize, Model, DataTypes } = require("sequelize");
 const express = require('express');
+const circularJSON = require('circular-json');
+var bodyParser = require('body-parser');
+var apiResponse = require('./apiResponser');
+
 
 // Create and Save a new Tutorial
-exports.create = (req, res) => {
-    if (!req.body.firstName) {
-        res.status(400).send({
-            message: "Content can not be empty!",
-        });
-        return;
-    }
+exports.create = (req, res, next) => {
+    // res.text(circularJSON.parse(req.body))
+    // res.send(req.body);
+    // if (!req.body.firstName) {
+    //     res.status(400).send({
+    //         message: "Content can not be empty!",
+    //     });
+    //     return;
+    // }
 
     // Create a Tutorial
     const user = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        password: req.body.password,
     };
+
 
     // Save Tutorial in the database
     User.create(user)
         .then((data) => {
-            res.send(data);
+
+            res.send(apiResponse.sucessResponse(200, "User Created", data));
         })
         .catch((err) => {
             res.status(500).send({
@@ -46,9 +55,7 @@ exports.findAll = (req, res) => {
     User.findAll()
         .then((data) => {
             // res.send(data);
-            res.status(200).send({
-                data: data,
-            });
+            res.send(apiResponse.sucessResponse(200, "All User Data", data));
         })
         .catch((err) => {
             res.status(500).send({

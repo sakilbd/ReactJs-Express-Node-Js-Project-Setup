@@ -2,9 +2,12 @@ module.exports = (app) => {
     const users = require("../controllers/crud.controller.js");
 
     var router = require("express").Router();
+    var bodyParser = require("body-parser");
+
+
 
     // Create a new Tutorial
-    // router.post("/", users.create);
+    router.post("/create", users.create);
 
     // Retrieve all users
     router.get("/", users.findAll);
@@ -24,5 +27,8 @@ module.exports = (app) => {
     // // Delete all users
     // router.delete("/", users.deleteAll);
 
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded());
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use("/api/users", router);
 };
