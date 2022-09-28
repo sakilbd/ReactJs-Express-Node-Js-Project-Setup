@@ -6,11 +6,14 @@ module.exports = (app) => {
 
 
 
+
+
     // Create a new Tutorial
-    router.post("/create", users.create);
+    router.post("/signUp", users.create);
 
     // Retrieve all users
     router.get("/", users.findAll);
+    router.post("/login", users.login);
 
     // Retrieve all published users
     // router.get("/published", users.findAllPublished);
@@ -30,5 +33,5 @@ module.exports = (app) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded());
     app.use(bodyParser.urlencoded({ extended: true }));
-    app.use("/api/users", router);
+    app.use("/api", router);
 };
