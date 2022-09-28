@@ -1,0 +1,5 @@
+1.npm i // to install all dependency packages mentioned in package.json , typically needed after git pull.
+
+
+2.npm i nodemon -g 
+npm nodemon server.js
