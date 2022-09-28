@@ -22,6 +22,7 @@ exports.create = (req, res) => {
 
     // Create a User
 
+
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
             return res.status(500).send({
@@ -59,7 +60,14 @@ exports.findAll = (req, res) => {
     //         [Op.like]: `%${title}%`
     //     }
     // } : null;
-
+    if (!req.headers.authorization ||
+        !req.headers.authorization.startsWith("Bearer") ||
+        !req.headers.authorization.split(" ")[1]
+    ) {
+        return res.status(422).json({
+            message: "Please provide the token",
+        });
+    }
     User.findAll()
         .then((data) => {
             // res.send(data);
