@@ -7,8 +7,9 @@ function LocalDataFetch() {
 //   const [query, setQuery] = useState("redux");
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/users').then((response) => {
-        console.log(response);
+    axios.get('http://localhost:8080/api').then((response) => {
+        // console.log(response);
+        // console.log(response.data.message)
         setData(response.data)
       });
   }, []);
